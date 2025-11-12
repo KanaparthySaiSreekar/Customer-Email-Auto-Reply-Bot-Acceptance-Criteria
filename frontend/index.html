@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Auto-Reply Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Customer Email Auto-Reply Bot</h1>
+            <div class="header-actions">
+                <button id="importBtn" class="btn btn-primary">Import CSV</button>
+                <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                <button id="refreshBtn" class="btn btn-secondary">Refresh</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar with email list -->
+            <aside class="sidebar">
+                <div class="folder-filters">
+                    <button class="folder-btn active" data-folder="all">All Emails</button>
+                    <button class="folder-btn" data-folder="billing">Billing</button>
+                    <button class="folder-btn" data-folder="support">Support</button>
+                    <button class="folder-btn" data-folder="bug">Bug Reports</button>
+                    <button class="folder-btn" data-folder="feature">Feature Requests</button>
+                </div>
+
+                <div id="emailList" class="email-list">
+                    <div class="loading">Loading emails...</div>
+                </div>
+            </aside>
+
+            <!-- Main content area -->
+            <main class="content">
+                <div id="welcomeScreen" class="welcome-screen">
+                    <h2>Welcome to Email Auto-Reply Bot</h2>
+                    <p>Select an email from the list to view details and manage auto-replies.</p>
+                    <div class="quick-actions">
+                        <button id="importBtnWelcome" class="btn btn-primary">Import Emails from CSV</button>
+                    </div>
+                </div>
+
+                <div id="emailDetail" class="email-detail" style="display: none;">
+                    <div class="detail-header">
+                        <h2 id="emailSubject"></h2>
+                        <div class="detail-actions">
+                            <button id="classifyBtn" class="btn btn-secondary">Re-classify</button>
+                            <button id="generateDraftBtn" class="btn btn-primary">Generate Auto-Reply</button>
+                            <button id="deleteEmailBtn" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="email-meta">
+                        <div class="meta-item">
+                            <strong>From:</strong> <span id="emailSender"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Case #:</strong> <span id="emailCase"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Intent:</strong> <span id="emailIntent" class="badge"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Confidence:</strong> <span id="emailConfidence"></span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>Folder:</strong> <span id="emailFolder"></span>
+                        </div>
+                        <div class="meta-item" id="reviewWarning" style="display: none;">
+                            <span class="badge badge-warning">Needs Human Review</span>
+                        </div>
+                    </div>
+
+                    <div class="email-content-section">
+                        <h3>Original Message</h3>
+                        <div id="emailContent" class="email-content"></div>
+                    </div>
+
+                    <div class="drafts-section">
+                        <div class="drafts-header">
+                            <h3>Auto-Reply Drafts</h3>
+                        </div>
+                        <div id="draftsList"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Import Modal -->
+        <div id="importModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Import Results</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="importResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
